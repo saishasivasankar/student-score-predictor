@@ -1,5 +1,7 @@
 import streamlit as st
 import joblib
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Page config
 st.set_page_config(page_title="Student Predictor", page_icon="🎓", layout="centered")
@@ -37,5 +39,23 @@ if st.button("🚀 Predict Score"):
 
 st.divider()
 
+st.subheader("📊 Prediction Graph")
+
+# Generate range of hours
+hours_range = np.linspace(0, 12, 50).reshape(-1, 1)
+
+# Predict scores
+scores_range = model.predict(hours_range)
+
+# Plot graph
+fig, ax = plt.subplots()
+ax.plot(hours_range, scores_range)
+ax.set_xlabel("Study Hours")
+ax.set_ylabel("Predicted Score")
+ax.set_title("Hours vs Predicted Score")
+
+# Show graph in Streamlit
+st.pyplot(fig)
+
 # Footer
-st.caption("Made by You 🚀")
+st.caption("Made by Saishasivasanakar 🚀")
